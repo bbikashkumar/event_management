@@ -52,8 +52,13 @@ function ensureAuthenticated(req, res, next) {
 }
 
 // Example protected route
-app.get('/eventhome', ensureAuthenticated, (req, res) => {
-    res.render('eventhome', { user: req.user }); // Access authenticated user through req.user
+// app.get('/eventhome', ensureAuthenticated, (req, res) => {
+//     res.render('eventhome', { user: req.user }); // Access authenticated user through req.user
+// });
+
+app.get('/eventhome', (req, res) => {
+    // Render the view for eventhome
+    res.render('eventhome', { /* Optional: Pass any data needed for rendering */ });
 });
 
 
@@ -242,7 +247,7 @@ app.post('/register-organization', (req, res) => {
     connection.query(insertOrganizationQuery, [organizerId, email, password], (err, results) => {
         if (err) {
             console.error('Error registering organization:', err);
-            return res.render('organizer-regd', { message: 'Failed to register organization. Please try again.' });
+            return res.render('organizer-regd', { message: 'Organization ID is already exist.' });
         }
         res.render('organizer-regd', { message: 'Organization registered successfully!' });
     });
