@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include("includes/header.ejs") %>
+    <title>Upcoming Events</title>
+    <link rel="stylesheet" href="/upcomingEvents.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 style="color: black;">UPCOMING EVENTS</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="search-container">
+            <form id="event-search-form" action="/upcomingEvents" method="GET">
+                <input type="text" name="keyword" placeholder="Search by keyword">
+                <input type="text" name="location" placeholder="Search by location">
+                <input type="date" name="date">
+                <!-- <input type="text" name="category" placeholder="Search by category"> -->
+                <button type="submit">Search</button>
+            </form>
+            
+            <button class="back-button" onclick="location.href='/eventhome'">Back</button>
+        </div>
+
+        <div class="event-list">
+            <% if (events.length === 0) { %>
+                <p>No upcoming events found.</p>
+            <% } else { %>
+                <% events.forEach(event => { %>
+                    <div class="event-item">
+                        <h2><%= event.title %></h2>
+                        <p><%= event.description %></p>
+                        <p class="details">Location: <%= event.location %> | Date: <%= new Date(event.datetime).toLocaleString() %> </p>
+                        <button onclick="window.location.href='/bookTicket/<%= event.id %>'">Book Ticket</button>
+                        <button onclick="window.location.href='/organizerLogin?eventId=<%= event.id %>'">Customize Event</button>
+                    </div>
+                <% }) %>
+            <% } %>
+        </div>
+    </div>
+
+    <%- include("includes/footer.ejs") %>
+</body>
+</html>

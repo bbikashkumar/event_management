@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include("includes/header.ejs") %> 
+    <title>Add New Event</title>
+    <link rel="stylesheet" href="/addEvent.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Add New Event</h2>
+        <% if (successMessage) { %>
+            <div class="success-message">
+                <p><%= successMessage %></p>
+            </div>
+        <% } %>
+        <% if (errorMessage) { %>
+            <div class="error-message">
+                <p style="color: red;"><%= errorMessage %></p>
+            </div>
+        <% } %>
+        <form id="add-event-form" action="/addEvent" method="POST">
+            <div class="form-group">
+                <label for="event-title">Event Title</label>
+                <input type="text" id="event-title" name="title" required>
+            </div>
+            <div class="form-group">
+                <label for="event-description">Event Description</label>
+                <textarea id="event-description" name="description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="event-date-time">Event Date and Time</label>
+                <input type="datetime-local" id="event-date-time" name="datetime" required>
+            </div>
+            <div class="form-group">
+                <label for="event-location">Event Location</label>
+                <input type="text" id="event-location" name="location" required>
+            </div>
+            <div class="form-group">
+                <label for="event-tickets">Ticketing Information</label>
+                <input type="text" id="event-tickets" name="tickets" required>
+            </div>
+            <button type="submit">Create Event</button>
+        </form>
+        <button onclick="window.location.href='/eventhome'">Back</button>
+    </div>
+</body>
+</html>

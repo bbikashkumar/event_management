@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <%- include("includes/header.ejs") %>
+    <title>Book Ticket</title>
+    <link rel="stylesheet" href="/bookTicket.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Book Ticket for <%= event.title %></h2>
+        <% if (successMessage) { %>
+            <div class="success-message">
+                <p><%= successMessage %></p>
+            </div>
+        <% } %>
+        <% if (errorMessage) { %>
+            <div class="error-message">
+                <p style="color: red;"><%= errorMessage %></p>
+            </div>
+        <% } %>
+        <form id="book-ticket-form" action="/bookTicket" method="POST">
+            <input type="hidden" name="eventId" value="<%= event.id %>">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}">
+            </div>
+            <div class="form-group">
+                <label for="tickets">Number of Tickets</label>
+                <input type="number" id="tickets" name="tickets" required min="1">
+            </div>
+            <div class="form-group">
+                <label for="ticketType">Ticket Type</label>
+                <select id="ticketType" name="ticketType" required>
+                    <option value="general">General - $50</option>
+                    <option value="premium">Premium - $100</option>
+                    <option value="vip">VIP - $200</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="paymentMethod">Payment Method</label>
+                <select id="paymentMethod" name="paymentMethod" required>
+                    <option value="creditCard">Credit Card</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="bankTransfer">Bank Transfer</option>
+                </select>
+            </div>
+            <button type="submit">Confirm Booking</button>
+        </form>
+        <button class="back-button" onclick="location.href='/upcomingEvents'">Back</button>
+    </div>
+</body>
+</html>

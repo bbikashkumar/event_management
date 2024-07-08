@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Organizer Login</title>
+    <link rel="stylesheet" href="/organizerLogin.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Event Organizer Login</h2>
+        <form id="organizer-login-form" action="/Customize-Event" method="GET" onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="organizer-username">Username</label>
+                <input type="text" id="organizer-username" name="organizerUsername" required>
+            </div>
+            <div class="form-group">
+                <label for="organizer-password">Password</label>
+                <input type="password" id="organizer-password" name="organizerPassword" required>
+            </div>
+            <input type="hidden" id="eventId" name="eventId" value="<%= eventId %>">
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            const username = document.getElementById('organizer-username').value;
+            const password = document.getElementById('organizer-password').value;
+
+            if (username === '' || password === '') {
+                alert('Both fields are required.');
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>

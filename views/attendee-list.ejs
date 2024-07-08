@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendee List</title>
+    <link rel="stylesheet" href="/attendeeList.css">
+    <style>
+        /* Basic CSS styling for layout */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .attendee-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .attendee-item {
+            border-bottom: 1px solid #ccc;
+            padding: 10px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .attendee-item:last-child {
+            border-bottom: none;
+        }
+        .attendee-details {
+            flex: 1;
+        }
+        .attendee-name {
+            font-weight: bold;
+            color: #007bff;
+        }
+        .attendee-email {
+            color: #555;
+        }
+        .attendee-phoneNo {
+            color: #555;
+        }
+        .ticket-count {
+            font-size: 14px;
+            color: #888;
+        }
+        .message-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .message-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Attendee List</h1>
+
+    <div class="attendee-container">
+        <% attendees.forEach(function(ticket_bookings) { %>
+            <div class="attendee-item">
+                <div class="attendee-details">
+                    <p class="attendee-name"><%= ticket_bookings.name %></p>
+                    <p class="attendee-email"><%= ticket_bookings.email %></p>
+                    <p class="attendee-phoneNo">Phone Number: <%= ticket_bookings.phoneNo %></p>
+                    <p class="ticket-count">Tickets booked: <%= ticket_bookings.no_of_tickets %></p>
+                    <button class="message-button" data-phone="<%= ticket_bookings.phoneNo %>">Send Message</button>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+    <script>
+        // JavaScript to handle button click and redirect to message sending
+        document.querySelectorAll('.message-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const phoneNo = this.getAttribute('data-phone');
+                // Redirect to your messaging functionality, passing phone number as needed
+                // Example: window.location.href = `/send-message?phone=${phoneNo}`;
+                alert(`Sending message to ${phoneNo}`);
+            });
+        });
+    </script>
+</body>
+</html>
