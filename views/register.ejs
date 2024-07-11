@@ -1,7 +1,30 @@
 <%- include("includes/header.ejs") %>
 <title>User Registration</title>
 <link rel="stylesheet" href="/register.css">
+<style>
+    .error {
+        color: red;
+    }
+
+    #password-container {
+        position: relative;
+    }
+
+    #password-container input[type="password"],
+    #password-container input[type="text"] {
+        padding-right: 30px;
+    }
+
+    .toggle-password {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+    }
+</style>
 </head>
+
 <body>
     <div class="container">
         <div class="form-container">
@@ -15,9 +38,11 @@
                     <label for="reg-email">Email</label>
                     <input type="email" id="reg-email" name="email" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group" id="password-container">
                     <label for="reg-password">Password</label>
                     <input type="password" id="reg-password" name="password" required>
+                    <span id="passworderr" class="error"></span>
+                    <i class="fas fa-eye toggle-password" id="togglePassword"></i>
                 </div>
                 <button type="submit">Register</button>
             </form>
@@ -25,7 +50,37 @@
             <div class="organizer-registration">
                 <p>Are you an organizer? <a href="/organizer-regd">Register as an Organizer</a></p>
             </div>
-        </div>  
+        </div>
     </div>
+
+    <script>
+        document.getElementById('register-form').addEventListener('submit', function(event) {
+            var passwordInput = document.getElementById('reg-password').value;
+            var passwordError = document.getElementById('passworderr');
+            var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}<>]).{8,}$/;
+
+            if (!regex.test(passwordInput)) {
+                passwordError.textContent = "Password must be at least 8 characters long and include both uppercase and lowercase letters, and at least one special character.";
+                event.preventDefault();
+            } else {
+                passwordError.textContent = '';
+            }
+        });
+
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            var passwordField = document.getElementById('reg-password');
+            var type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordField.setAttribute('type', type);
+
+            var icon = document.getElementById('togglePassword');
+            if (type === 'text') {
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        });
+    </script>
 </body>
 </html>
